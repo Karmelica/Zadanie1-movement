@@ -108,13 +108,13 @@ public class Mech : MonoBehaviour
 
     private void Overcharge()
     {
-        if (clutch.value > 1 && !isOvercharged && !zero)
+        if (clutch.value > 2 && !isOvercharged && !zero)
         {
-            overchargeLevel += Time.deltaTime * 0.01f * (clutch.value + (leftSlider.value + rightSlider.value) / 2);
+            overchargeLevel += Time.deltaTime * 0.02f * clutch.value;
         }
-        else if (clutch.value == 0 && overchargeLevel > 0)
+        else if (clutch.value <= 2 && overchargeLevel > 0)
         {
-            overchargeLevel -= Time.deltaTime * 0.2f;
+            overchargeLevel -= Time.deltaTime * 0.1f * (2 - clutch.value);
         }
 
         if (overchargeLevel >= 1f)
