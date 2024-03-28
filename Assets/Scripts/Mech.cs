@@ -32,10 +32,10 @@ public class Mech : MonoBehaviour
 
     [Header("Overcharge")]
 
-    [SerializeField] private bool isOvercharged = false;
+    private bool isOvercharged = false;
     public GameObject overchargeText;
     public Image overchargeImage;
-    public float overchargeLevel;
+    public float overchargeLevel = 0f;
 
     public IEnumerator Walking()
     {
