@@ -32,10 +32,14 @@ public class Mech : MonoBehaviour
 
     [Header("Overcharge")]
 
-    private bool isOvercharged = false;
+    private bool leftIsOvercharged;
+    private bool rightIsOvercharged;
+    //private bool tankEmpty = false;
     public GameObject overchargeText;
     public Image overchargeImage;
-    public float overchargeLevel = 0f;
+    public Image leftOvercharge;
+    public Image rightOvercharge;
+    public float fuelLevel = 0f;
 
     public IEnumerator Walking()
     {
@@ -108,6 +112,57 @@ public class Mech : MonoBehaviour
 
     private void Overcharge()
     {
+        if(!leftIsOvercharged)
+        {
+            if(leftOvercharge.fillAmount < 1)
+            {
+                leftOvercharge.fillAmount += Time.deltaTime * 0.01f * (leftSlider.value - 2);
+            }
+            else
+            {
+                leftIsOvercharged = true;
+            }
+        }
+        else
+        {
+            if (leftSlider.value > 2)
+            {
+                leftSlider.value = 2;
+            }
+        }
+
+
+        if (!rightIsOvercharged)
+        {
+            if (rightOvercharge.fillAmount < 1)
+            {
+                rightOvercharge.fillAmount += Time.deltaTime * 0.01f * (rightSlider.value - 2);
+            }
+            else
+            {
+                rightIsOvercharged = true;
+            }
+        }
+        else
+        {
+            if(rightSlider.value > 2)
+            {
+                rightSlider.value = 2;
+            }
+        }
+    }
+
+
+    private void LeftOvercharged()
+    {
+    }
+
+    private void RightOvercharged()
+    {
+    }
+
+    /*private void Overcharge()
+    {
         if (clutch.value > 2 && !isOvercharged && !zero)
         {
             overchargeLevel += Time.deltaTime * 0.02f * clutch.value;
@@ -139,7 +194,7 @@ public class Mech : MonoBehaviour
         rightSlider.value = 0;
         directionSlider.Reset();
         forward = true;
-    }
+    }*/
 
     // Start is called before the first frame update
     void Start()
@@ -160,7 +215,7 @@ public class Mech : MonoBehaviour
 
         Overcharge();
 
-        overchargeImage.fillAmount = overchargeLevel;
+        overchargeImage.fillAmount = fuelLevel;
 
     }
 }
