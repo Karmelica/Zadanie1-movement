@@ -153,12 +153,14 @@ public class Mech : MonoBehaviour
     }
 
 
-    private void LeftOvercharged()
+    private void LeftOverchargeDelete()
     {
+
     }
 
-    private void RightOvercharged()
+    private void RightOverchargeDelete()
     {
+
     }
 
     /*private void Overcharge()
