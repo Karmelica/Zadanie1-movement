@@ -23,10 +23,10 @@ public class RollerBall : MonoBehaviour {
 	void FixedUpdate () {
 		if (mRigidBody != null) {
 			if (Input.GetButton ("Horizontal")) {
-				mRigidBody.AddTorque(Vector3.back * Input.GetAxis("Horizontal")*10);
+				mRigidBody.AddTorque(10 * Input.GetAxis("Horizontal") * Vector3.back);
 			}
 			if (Input.GetButton ("Vertical")) {
-				mRigidBody.AddTorque(Vector3.right * Input.GetAxis("Vertical")*10);
+				mRigidBody.AddTorque(10 * Input.GetAxis("Vertical") * Vector3.right);
 			}
 			if (Input.GetButtonDown("Jump")) {
 				if(mAudioSource != null && JumpSound != null){
@@ -36,10 +36,9 @@ public class RollerBall : MonoBehaviour {
 			}
 		}
 		if (ViewCamera != null) {
-			Vector3 direction = (Vector3.up*2+Vector3.back)*2;
-			RaycastHit hit;
-			Debug.DrawLine(transform.position,transform.position+direction,Color.red);
-			if(Physics.Linecast(transform.position,transform.position+direction,out hit)){
+            Vector3 direction = (Vector3.up * 2 + Vector3.back) * 2;
+            Debug.DrawLine(transform.position, transform.position + direction, Color.red);
+            if (Physics.Linecast(transform.position,transform.position+direction,out RaycastHit hit)){
 				ViewCamera.transform.position = hit.point;
 			}else{
 				ViewCamera.transform.position = transform.position+direction;
@@ -49,7 +48,7 @@ public class RollerBall : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision coll){
-		if (coll.gameObject.tag.Equals ("Floor")) {
+		if (coll.gameObject.CompareTag("Floor")) {
 			mFloorTouched = true;
 			if (mAudioSource != null && HitSound != null && coll.relativeVelocity.y > .5f) {
 				mAudioSource.PlayOneShot (HitSound, coll.relativeVelocity.magnitude);
