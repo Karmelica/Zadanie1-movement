@@ -36,10 +36,9 @@ public class Mech : MonoBehaviour
     private bool rightIsOvercharged;
     //private bool tankEmpty = false;
     public GameObject overchargeText;
-    public Image overchargeImage;
+    public Image fuelImage;
     public Image leftOvercharge;
     public Image rightOvercharge;
-    public float fuelLevel = 0f;
 
     public IEnumerator Walking()
     {
@@ -85,6 +84,10 @@ public class Mech : MonoBehaviour
         }
     }
 
+    //private void LeftOverchargeDelete(){}
+
+    //private void RightOverchargeDelete(){}
+
     public void MoveForward()
     {
         clutch.value = 0;
@@ -107,6 +110,14 @@ public class Mech : MonoBehaviour
         else
         {
             buttonImage.sprite = backImage;
+        }
+    }
+
+    private void Fuel()
+    {
+        if(fuelImage.fillAmount > 0)
+        {
+            fuelImage.fillAmount -= Time.deltaTime * 0.01f * ((4 + clutch.value) / 4);
         }
     }
 
@@ -153,15 +164,7 @@ public class Mech : MonoBehaviour
     }
 
 
-    private void LeftOverchargeDelete()
-    {
 
-    }
-
-    private void RightOverchargeDelete()
-    {
-
-    }
 
     /*private void Overcharge()
     {
@@ -217,7 +220,8 @@ public class Mech : MonoBehaviour
 
         Overcharge();
 
-        overchargeImage.fillAmount = fuelLevel;
+        Fuel();
+
 
     }
 }
