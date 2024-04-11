@@ -1958,7 +1958,7 @@ Transform:
   m_GameObject: {fileID: 1172547821}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2, y: 2, z: 2}
+  m_LocalPosition: {x: 1.96, y: 2, z: 1.987}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2266,7 +2266,7 @@ MonoBehaviour:
   m_Direction: 2
   m_MinValue: 1
   m_MaxValue: 5
-  m_WholeNumbers: 0
+  m_WholeNumbers: 1
   m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2290,7 +2290,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1295020825}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba2b04fc4c4deae4eb48b6d730a68cec, type: 3}
   m_Name: 
@@ -2693,7 +2693,6 @@ MonoBehaviour:
   leftSlider: {fileID: 1783102890}
   clutch: {fileID: 279641493}
   orientation: {fileID: 1762903495}
-  isOvercharged: 0
   overchargeText: {fileID: 1283864267}
   overchargeImage: {fileID: 1666886789}
   overchargeLevel: 0
@@ -3023,7 +3022,7 @@ MonoBehaviour:
   m_Direction: 2
   m_MinValue: 1
   m_MaxValue: 5
-  m_WholeNumbers: 0
+  m_WholeNumbers: 1
   m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3047,7 +3046,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1783102888}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba2b04fc4c4deae4eb48b6d730a68cec, type: 3}
   m_Name: 
