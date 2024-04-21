@@ -8,9 +8,11 @@ using UnityEngine.UI;
 
 public class Mech : MonoBehaviour
 {
+
     [SerializeField] private Button button;
     [SerializeField] private DirectionSlider directionSlider;
 
+    static public int resource;
     private Image buttonImage;
 
     private float r = 0;
@@ -20,6 +22,7 @@ public class Mech : MonoBehaviour
     private bool zero;
 
     [Header("Components")]
+    public TextMeshProUGUI resourcesNum;
 
     public Sprite forwardImage;
     public Sprite backImage;
@@ -222,6 +225,6 @@ public class Mech : MonoBehaviour
 
         Fuel();
 
-
+        resourcesNum.text = resource.ToString();
     }
 }

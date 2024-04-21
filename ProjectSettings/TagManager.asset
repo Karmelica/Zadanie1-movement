@@ -3,12 +3,15 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Floor
+  - Coin
+  - Collector
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Resources
   - Water
   - UI
   - 
