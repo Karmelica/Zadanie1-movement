@@ -1,14 +1,16 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using TMPro;
 using TreeEditor;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.XR;
 
 public class Mech : MonoBehaviour
 {
-
     [SerializeField] private Button button;
     [SerializeField] private DirectionSlider directionSlider;
 
@@ -22,7 +24,10 @@ public class Mech : MonoBehaviour
     private bool zero;
 
     [Header("Components")]
-    public TextMeshProUGUI resourcesNum;
+    public Image core;
+    public List<Image> coreSlots = new();
+    public List<int> slotEmpty = new() {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
+    public Canvas canvas;
 
     public Sprite forwardImage;
     public Sprite backImage;
@@ -40,8 +45,26 @@ public class Mech : MonoBehaviour
     //private bool tankEmpty = false;
     public GameObject overchargeText;
     public Image fuelImage;
+    public Image fuelImageBack;
     public Image leftOvercharge;
     public Image rightOvercharge;
+    private Collider colli;
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Coin"))
+        {
+            colli = other;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Coin"))
+        {
+            colli = null;
+        }
+    }
 
     public IEnumerator Walking()
     {
@@ -121,6 +144,11 @@ public class Mech : MonoBehaviour
         if(fuelImage.fillAmount > 0)
         {
             fuelImage.fillAmount -= Time.deltaTime * 0.01f * ((4 + clutch.value) / 4);
+            fuelImageBack.fillAmount = fuelImage.fillAmount;
+        }
+        else
+        {
+            clutch.value = 0;
         }
     }
 
@@ -166,43 +194,29 @@ public class Mech : MonoBehaviour
         }
     }
 
-
-
-
-    /*private void Overcharge()
+    public void AddCore()
     {
-        if (clutch.value > 2 && !isOvercharged && !zero)
+        int rand;
+        do
         {
-            overchargeLevel += Time.deltaTime * 0.02f * clutch.value;
-        }
-        else if (clutch.value <= 2 && overchargeLevel > 0)
-        {
-            overchargeLevel -= Time.deltaTime * 0.1f * (2 - clutch.value);
-        }
+            rand = Random.Range(0, 12);
 
-        if (overchargeLevel >= 1f)
+            if (slotEmpty.Contains(rand))
+            {
+                slotEmpty.Remove(rand);
+                Instantiate(core, coreSlots[rand].rectTransform, false);
+                break;
+            }
+        } while (slotEmpty.Count > 0);
+    }
+    public void PickUpAction()
+    {
+        if (colli != null && slotEmpty.Count > 0)
         {
-            Overcharged();
-        }
-        if (isOvercharged && overchargeLevel <= 0)
-        {
-            overchargeText.SetActive(false);
-            isOvercharged = false;
-            StartCoroutine(Walking());
+            AddCore();
+            Destroy(colli.gameObject);
         }
     }
-
-    private void Overcharged()
-    {
-        overchargeText.SetActive(true);
-        isOvercharged = true;
-        StopAllCoroutines();
-        clutch.value = 0;
-        leftSlider.value = 0;
-        rightSlider.value = 0;
-        directionSlider.Reset();
-        forward = true;
-    }*/
 
     // Start is called before the first frame update
     void Start()
@@ -224,7 +238,5 @@ public class Mech : MonoBehaviour
         Overcharge();
 
         Fuel();
-
-        resourcesNum.text = resource.ToString();
     }
 }
