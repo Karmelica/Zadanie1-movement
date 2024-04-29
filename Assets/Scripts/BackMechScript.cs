@@ -1,12 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class BackMechScript : MonoBehaviour
 {
-    public Image XD;
     private Vector2 mousePos;
+    [SerializeField] private Image core;
+
+    public void OnMouse()
+    {
+        core = gameObject.GetComponentInChildren<Image>();
+    }
+
+    private void Start()
+    {
+        core = null;
+    }
 
     private void Update()
     {
@@ -14,9 +25,9 @@ public class BackMechScript : MonoBehaviour
         mousePos.x *= Screen.width;
         mousePos.y *= Screen.height;
 
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1) && core != null)
         {
-            XD.rectTransform.position = mousePos;
+            core.rectTransform.position = mousePos;
         }
     }
 }

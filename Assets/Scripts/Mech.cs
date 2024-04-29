@@ -204,18 +204,19 @@ public class Mech : MonoBehaviour
             if (slotEmpty.Contains(rand))
             {
                 slotEmpty.Remove(rand);
-                Instantiate(core, coreSlots[rand].rectTransform, false);
+                core = Instantiate(core, coreSlots[rand].rectTransform, false);
+                core.transform.localScale = Vector3.one * 0.7f;
                 break;
             }
         } while (slotEmpty.Count > 0);
     }
     public void PickUpAction()
     {
-        if (colli != null && slotEmpty.Count > 0)
-        {
+        //if (colli != null && slotEmpty.Count > 0)
+        //{
             AddCore();
-            Destroy(colli.gameObject);
-        }
+            //Destroy(colli.gameObject);
+        //}
     }
 
     // Start is called before the first frame update

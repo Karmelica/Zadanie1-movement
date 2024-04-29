@@ -1975,7 +1975,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1737315000337447491}
-  - component: {fileID: 6251277973972821266}
+  - component: {fileID: 6999140854468078976}
   m_Layer: 5
   m_Name: MechBack
   m_TagString: Untagged
@@ -2011,7 +2011,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 2040}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &6251277973972821266
+--- !u!114 &6999140854468078976
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2023,6 +2023,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6ca79523c26d014a995c0272135c376, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  core: {fileID: 0}
 --- !u!1 &8887189061388852369
 GameObject:
   m_ObjectHideFlags: 0
