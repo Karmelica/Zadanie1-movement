@@ -212,11 +212,11 @@ public class Mech : MonoBehaviour
     }
     public void PickUpAction()
     {
-        //if (colli != null && slotEmpty.Count > 0)
-        //{
+        if (colli != null && slotEmpty.Count > 0)
+        {
             AddCore();
-            //Destroy(colli.gameObject);
-        //}
+            Destroy(colli.gameObject);
+        }
     }
 
     // Start is called before the first frame update
