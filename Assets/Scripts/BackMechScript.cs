@@ -1,33 +1,62 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class BackMechScript : MonoBehaviour
 {
-    private Vector2 mousePos;
-    [SerializeField] private Image core;
+    public Mech mechScript;
+    private RectTransform currentCore = null;
+    public Button leftCoreButton;
+    public Button rightCoreButton;
 
-    public void OnMouse()
+    private IEnumerator coreManager(RectTransform current)
     {
-        core = gameObject.GetComponentInChildren<Image>();
+        current.localScale = Vector3.one;
+        current.gameObject.GetComponent<Button>().enabled = false;
+        current.gameObject.GetComponent<Image>().color = Color.red;
+        yield return new WaitForSeconds(3f);
+        current.gameObject.GetComponent<Image>().color = Color.cyan;
+        current.localPosition = Vector3.zero;
+        current.localScale = Vector3.one * 0.7f;
+        current.gameObject.GetComponent<Button>().enabled = true;
+        current.gameObject.SetActive(false);
     }
 
-    private void Start()
+    public void GetThisImage(RectTransform buttonCore)
     {
-        core = null;
+        currentCore = buttonCore;
     }
 
-    private void Update()
+    public void PutInLeftCore(RectTransform coreTransform)
     {
-        mousePos = Camera.main.ScreenToViewportPoint(Input.mousePosition);
-        mousePos.x *= Screen.width;
-        mousePos.y *= Screen.height;
-
-        if (Input.GetMouseButton(1) && core != null)
+        if(currentCore != null)
         {
-            core.rectTransform.position = mousePos;
+            mechScript.LeftOverchargeDelete();
+            currentCore.position = coreTransform.position;
+            StartCoroutine(coreManager(currentCore));
+            Destroy(leftCoreButton.gameObject);
+            currentCore = null;
+        }
+    }
+    public void PutInRightCore(RectTransform coreTransform)
+    {
+        if (currentCore != null)
+        {
+            mechScript.RightOverchargeDelete();
+            currentCore.position = coreTransform.position;
+            StartCoroutine(coreManager(currentCore));
+            Destroy(rightCoreButton.gameObject);
+            currentCore = null;
+        }
+    }
+    public void RefillFuel(RectTransform coreTransform)
+    {
+        if (currentCore != null)
+        {
+            currentCore.position = coreTransform.position;
+            StartCoroutine(coreManager(currentCore));
+            mechScript.AddFuel();
+            currentCore = null;
         }
     }
 }
