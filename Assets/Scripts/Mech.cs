@@ -19,6 +19,7 @@ public class Mech : MonoBehaviour
     private bool anyCoreSlotLeft = false;
 
     [Header("Components")]
+    public MeshRenderer cubeMesh;
     public Image core;
     public List<Image> cores;
     public Canvas canvas;
@@ -255,6 +256,7 @@ public class Mech : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         targetAngle = transform.eulerAngles.y;
 
         rb = GetComponent<Rigidbody>();
@@ -266,6 +268,15 @@ public class Mech : MonoBehaviour
 
     private void Update()
     {
+        if (colli != null)
+        {
+            cubeMesh.enabled = true;
+        }
+        else
+        {
+            cubeMesh.enabled = false;
+        }
+
         float angleChange = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref r, 0.4f);
         transform.rotation = Quaternion.Euler(transform.rotation.x, angleChange, transform.rotation.z);
 
