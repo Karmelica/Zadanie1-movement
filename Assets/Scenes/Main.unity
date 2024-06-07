@@ -4517,6 +4517,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4770127857289128573, guid: 1c530ed91f5f86a43b813daf3842ac95, type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5154412903700438339, guid: 1c530ed91f5f86a43b813daf3842ac95, type: 3}
       propertyPath: m_Name
       value: FrontMech
