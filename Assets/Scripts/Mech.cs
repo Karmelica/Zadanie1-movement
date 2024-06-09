@@ -8,10 +8,10 @@ public class Mech : MonoBehaviour
     [SerializeField] private Button button;
     [SerializeField] private DirectionSlider directionSlider;
 
-    static public int resource;
     private Image buttonImage;
 
     private float r = 0;
+
     private float targetAngle;
     private float rot = 1f;
     static public bool forward = true;
@@ -19,6 +19,7 @@ public class Mech : MonoBehaviour
     private bool anyCoreSlotLeft = false;
 
     [Header("Components")]
+    public Tutorial tutorial;
     public MeshRenderer cubeMesh;
     public Image core;
     public List<Image> cores;
@@ -34,14 +35,13 @@ public class Mech : MonoBehaviour
     public Transform orientation;
 
     [Header("Overcharge")]
-
-    private bool leftIsOvercharged;
-    private bool rightIsOvercharged;
     //private bool tankEmpty = false;
     public Image fuelImage;
     public Image fuelImageBack;
     public Image leftOverchargeLevel;
     public Image rightOverchargeLevel;
+
+    [Header("Cores")]
     private Collider colli;
     private bool hasRightCore = false;
     private bool hasLeftCore = false;
@@ -134,14 +134,17 @@ public class Mech : MonoBehaviour
 
     private void Fuel()
     {
-        if (fuelImage.fillAmount > 0)
+        if (tutorial.task6)
         {
-            fuelImage.fillAmount -= Time.deltaTime * 0.01f * ((4 + clutch.value) / 4);
-            fuelImageBack.fillAmount = fuelImage.fillAmount;
-        }
-        else
-        {
-            clutch.value = 0;
+            if (fuelImage.fillAmount > 0)
+            {
+                fuelImage.fillAmount -= Time.deltaTime * 0.01f * ((4 + clutch.value) / 4);
+                fuelImageBack.fillAmount = fuelImage.fillAmount;
+            }
+            else
+            {
+                clutch.value = 0;
+            }
         }
     }
 
@@ -163,34 +166,38 @@ public class Mech : MonoBehaviour
 
     private void Overcharge()
     {
-        if (!hasLeftCore) {
-            if (leftOverchargeLevel.fillAmount < 1)
+        if (tutorial.task6) {
+            if (!hasLeftCore)
             {
-                leftOverchargeLevel.fillAmount += Time.deltaTime * 0.01f * (leftSlider.value - 2);
-            }
-            else
-            {
-                if (leftSlider.value > 2)
+                if (leftOverchargeLevel.fillAmount < 1)
                 {
-                    leftSlider.value = 2;
+                    leftOverchargeLevel.fillAmount += Time.deltaTime * 0.01f * (leftSlider.value - 2);
+                }
+                else
+                {
+                    if (leftSlider.value > 2)
+                    {
+                        leftSlider.value = 2;
+                    }
+                }
+            }
+
+            if (!hasRightCore)
+            {
+                if (rightOverchargeLevel.fillAmount < 1)
+                {
+                    rightOverchargeLevel.fillAmount += Time.deltaTime * 0.01f * (rightSlider.value - 2);
+                }
+                else
+                {
+                    if (rightSlider.value > 2)
+                    {
+                        rightSlider.value = 2;
+                    }
                 }
             }
         }
-        
-        if(!hasRightCore) {
-            if (rightOverchargeLevel.fillAmount < 1)
-            {
-                rightOverchargeLevel.fillAmount += Time.deltaTime * 0.01f * (rightSlider.value - 2);
-            }
-            else
-            {
-                if (rightSlider.value > 2)
-                {
-                    rightSlider.value = 2;
-                }
-            }
-        }
-        
+
     }
 
     public void AddCore()
@@ -256,12 +263,10 @@ public class Mech : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         targetAngle = transform.eulerAngles.y;
 
         rb = GetComponent<Rigidbody>();
         buttonImage = button.GetComponent<Image>();
-
         StartCoroutine(Walking());
     }
 
