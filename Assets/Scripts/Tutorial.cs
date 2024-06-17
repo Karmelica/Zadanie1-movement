@@ -59,6 +59,7 @@ public class Tutorial : MonoBehaviour
             clutchLevel.value = 0;
         }
 
+
         if (other.CompareTag("Task5"))
         {
             leftLever.value = 1;
@@ -138,7 +139,7 @@ public class Tutorial : MonoBehaviour
 
         if (other.CompareTag("Task2"))
         {
-            if(leftLever.value != rightLever.value)
+            if (leftLever.value != rightLever.value)
             {
                 Time.timeScale = 0.01f;
             }
@@ -150,11 +151,15 @@ public class Tutorial : MonoBehaviour
             task2Text.gameObject.SetActive(true); //shows text in task area
             if (Task2()) //it task is completed
             {
+                if(Time.timeScale != 1)
+                {
+                    Time.timeScale = 1;
+                }
                 other.gameObject.SetActive(false); //disables task are
                 task2Text.gameObject.SetActive(false); //disables task text
                 door2.SetActive(false); //opens obstacles
-
             }
+
         }
 
         if (other.CompareTag("Task3"))
@@ -316,10 +321,10 @@ public class Tutorial : MonoBehaviour
     {
         if (transform.position.x >= 46)
         {
-            task2 = true; //changes bool to true after finishing task
+            task4 = true; //changes bool to true after finishing task
         }
 
-        return task2; //returning true after completion
+        return task4; //returning true after completion
     }
 
     private bool Task5()

@@ -138,7 +138,7 @@ public class Mech : MonoBehaviour
         {
             if (fuelImage.fillAmount > 0)
             {
-                fuelImage.fillAmount -= Time.deltaTime * 0.01f * ((4 + clutch.value) / 4);
+                fuelImage.fillAmount -= Time.deltaTime * 0.005f * ((4 + clutch.value) / 4);
                 fuelImageBack.fillAmount = fuelImage.fillAmount;
             }
             else
