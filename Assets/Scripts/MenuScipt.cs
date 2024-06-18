@@ -40,25 +40,50 @@ public class MenuScript : MonoBehaviour
 
     public void SliderChange()
     {
-        if(leftSlider.value == -1)
+        if(!options.activeInHierarchy && !credits.activeInHierarchy)
         {
-            if(selectedOption < 4)
+            if (leftSlider.value == -1)
             {
-                selectedOption++;
-                ChangeOption();
-                leftSlider.value = 0;
-                leftSlider.interactable = false;
+                if (selectedOption < 4)
+                {
+                    selectedOption++;
+                    ChangeOption();
+                    leftSlider.value = 0;
+                    leftSlider.interactable = false;
+                }
+            }
+
+            if (rightSlider.value == 1)
+            {
+                if (selectedOption > 0)
+                {
+                    selectedOption--;
+                    ChangeOption();
+                    rightSlider.value = 0;
+                    rightSlider.interactable = false;
+                }
             }
         }
-
-        if(rightSlider.value == 1)
+        else if (options.activeInHierarchy)
         {
-            if(selectedOption > 0)
+            if (leftSlider.value == -1)
             {
-                selectedOption--;
-                ChangeOption();
-                rightSlider.value = 0;
-                rightSlider.interactable = false;
+                if (volumeSlider.value > 0)
+                {
+                    volumeSlider.value -= 0.1f;
+                    leftSlider.value = 0;
+                    leftSlider.interactable = false;
+                }
+            }
+
+            if (rightSlider.value == 1)
+            {
+                if (volumeSlider.value < 1)
+                {
+                    volumeSlider.value += 0.1f;
+                    rightSlider.value = 0;
+                    rightSlider.interactable = false;
+                }
             }
         }
     }
