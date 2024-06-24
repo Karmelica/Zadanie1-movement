@@ -3,11 +3,13 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 using UnityEngine.UI;
 
 public class Tutorial : MonoBehaviour
 {
     [Header("Tutorial Components")]
+    public Image fadeAway;
     public RawImage task5Camera;
     public Slider leftLever;
     public Slider rightLever;
@@ -17,6 +19,9 @@ public class Tutorial : MonoBehaviour
     public Button fuelCoreButton;
     public Button overchargeFillButton1;
     public Button overchargeFillButton2;
+
+    private Color alpha;
+    public Transform end;
 
     //bools that represent if task is complete (or set of tasks)
     public List<bool> task1;
@@ -39,6 +44,8 @@ public class Tutorial : MonoBehaviour
     public TextMeshProUGUI task6Text;
     public TextMeshProUGUI task7Text;
     public List<TextMeshProUGUI> task8Text;
+
+    private TextMeshProUGUI currentTask;
 
     [Header("Doors")] //obstacles which are deleted after completing a task
     public GameObject door1;
@@ -107,6 +114,15 @@ public class Tutorial : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+        if (other.CompareTag("FadeAway"))
+        {
+            float distance = (transform.position - end.position).magnitude;
+            Debug.Log(distance.ToString());
+            alpha.a = fadeAway.color.a;
+            alpha.a = 1 - (distance / 80f);
+            fadeAway.color = alpha;
+        }
+
         if (other.CompareTag("Task1"))
         {
             if(leftLever.value > 2)

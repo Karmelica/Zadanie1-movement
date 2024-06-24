@@ -16,6 +16,7 @@ TagManager:
   - Task7
   - Task8
   - Task5.2
+  - FadeAway
   layers:
   - Default
   - TransparentFX
