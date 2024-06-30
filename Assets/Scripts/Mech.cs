@@ -110,7 +110,7 @@ public class Mech : MonoBehaviour
     public void MoveForward()
     {
         clutch.value = 0;
-        directionSlider.Reset();
+        directionSlider.ResetRevMeter();
         forward = !forward;
 
         if (rightSlider.value > leftSlider.value)
@@ -134,7 +134,7 @@ public class Mech : MonoBehaviour
 
     private void Fuel()
     {
-        if (tutorial.task6)
+        if (tutorial.enabled == false || tutorial.task6)
         {
             if (fuelImage.fillAmount > 0)
             {
@@ -166,7 +166,7 @@ public class Mech : MonoBehaviour
 
     private void Overcharge()
     {
-        if (tutorial.task6) {
+        if (tutorial.enabled == false || tutorial.task6) {
             if (!hasLeftCore)
             {
                 if (leftOverchargeLevel.fillAmount < 1)

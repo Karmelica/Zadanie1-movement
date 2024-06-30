@@ -9,7 +9,7 @@ public class DirectionSlider : MonoBehaviour
     public Sprite[] revImages;
     public Image revMeter;
 
-    public void Reset()
+    public void ResetRevMeter()
     {
         revMeter.sprite = revImages[0];
     }

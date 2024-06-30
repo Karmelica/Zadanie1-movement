@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Tutorial : MonoBehaviour
 {
     [Header("Tutorial Components")]
+    public Button hideText;
     public Image fadeAway;
     public RawImage task5Camera;
     public Slider leftLever;
@@ -19,6 +19,7 @@ public class Tutorial : MonoBehaviour
     public Button fuelCoreButton;
     public Button overchargeFillButton1;
     public Button overchargeFillButton2;
+    public DirectionSlider dirSlider;
 
     private Color alpha;
     public Transform end;
@@ -45,7 +46,7 @@ public class Tutorial : MonoBehaviour
     public TextMeshProUGUI task7Text;
     public List<TextMeshProUGUI> task8Text;
 
-    private TextMeshProUGUI currentTask;
+    public GameObject taskObject;
 
     [Header("Doors")] //obstacles which are deleted after completing a task
     public GameObject door1;
@@ -59,11 +60,13 @@ public class Tutorial : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        taskObject.SetActive(true);
         if (other.CompareTag("Task3"))
         {
             leftLever.value = 1;
             rightLever.value = 1;
             clutchLevel.value = 0;
+            dirSlider.ResetRevMeter();
         }
 
 
@@ -72,6 +75,7 @@ public class Tutorial : MonoBehaviour
             leftLever.value = 1;
             rightLever.value = 1;
             clutchLevel.value = 0;
+            dirSlider.ResetRevMeter();
 
             forwardButton.gameObject.SetActive(true);
             task5Camera.gameObject.SetActive(true);
@@ -82,6 +86,7 @@ public class Tutorial : MonoBehaviour
             leftLever.value = 1;
             rightLever.value = 1;
             clutchLevel.value = 0;
+            dirSlider.ResetRevMeter();
 
             task5Camera.gameObject.SetActive(false);
         }
@@ -91,6 +96,7 @@ public class Tutorial : MonoBehaviour
             leftLever.value = 1;
             rightLever.value = 1;
             clutchLevel.value = 0;
+            dirSlider.ResetRevMeter();
 
             fuelCoreButton.enabled = true;
         }
@@ -102,6 +108,7 @@ public class Tutorial : MonoBehaviour
             leftLever.value = 1;
             rightLever.value = 1;
             clutchLevel.value = 0;
+            dirSlider.ResetRevMeter();
 
             overchargeFillButton1.enabled = true;
         }
@@ -117,10 +124,15 @@ public class Tutorial : MonoBehaviour
         if (other.CompareTag("FadeAway"))
         {
             float distance = (transform.position - end.position).magnitude;
-            Debug.Log(distance.ToString());
             alpha.a = fadeAway.color.a;
             alpha.a = 1 - (distance / 80f);
             fadeAway.color = alpha;
+
+            if(distance < 5)
+            {
+                hideText.gameObject.SetActive(false);
+                SceneManager.LoadScene(1);
+            }
         }
 
         if (other.CompareTag("Task1"))
@@ -265,6 +277,18 @@ public class Tutorial : MonoBehaviour
         }
     }
 
+    public void HideTutorial()
+    {
+        if(taskObject.activeInHierarchy)
+        {
+            taskObject.SetActive(false);
+        }
+        else
+        {
+            taskObject.SetActive(true);
+        }
+    }
+
     public bool Task1()
     {
         if (rightLever.value >= 2)
@@ -310,16 +334,19 @@ public class Tutorial : MonoBehaviour
     {
         if (rightLever.value == 1)
         {
+            task3Text[0].fontStyle = FontStyles.Strikethrough;
             task3[0] = true;
         }
 
         if (leftLever.value > 1)
         {
+            task3Text[1].fontStyle = FontStyles.Strikethrough;
             task3[1] = true;
         }
 
         if (clutchLevel.value >= 1)
         {
+            task3Text[2].fontStyle = FontStyles.Strikethrough;
             task3[2] = true;
         }
 
@@ -383,5 +410,15 @@ public class Tutorial : MonoBehaviour
     public void Task8Done()
     {
         task8 = true;
+    }
+
+    private void Start()
+    {
+        overchargeFillButton2.enabled = false;
+        overchargeFillButton1.enabled = false;
+        fuelCoreButton.enabled = false;
+
+        forwardButton.gameObject.SetActive(false);
+        hideText.gameObject.SetActive(true);
     }
 }

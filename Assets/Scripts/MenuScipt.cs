@@ -42,25 +42,25 @@ public class MenuScript : MonoBehaviour
     {
         if(!options.activeInHierarchy && !credits.activeInHierarchy)
         {
-            if (leftSlider.value == -1)
+            if (leftSlider.value < -0.75f)
             {
                 if (selectedOption < 4)
                 {
+                    leftSlider.interactable = false;
+                    leftSlider.value = -0.75f;
                     selectedOption++;
                     ChangeOption();
-                    leftSlider.value = 0;
-                    leftSlider.interactable = false;
                 }
             }
 
-            if (rightSlider.value == 1)
+            if (rightSlider.value > 0.75)
             {
                 if (selectedOption > 0)
                 {
+                    rightSlider.interactable = false;
+                    rightSlider.value = 0.75f;
                     selectedOption--;
                     ChangeOption();
-                    rightSlider.value = 0;
-                    rightSlider.interactable = false;
                 }
             }
         }
