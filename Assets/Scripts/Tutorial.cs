@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -130,7 +129,7 @@ public class Tutorial : MonoBehaviour
             if(distance < 5)
             {
                 hideText.gameObject.SetActive(false);
-                SceneManager.LoadScene(1);
+                SceneManager.LoadScene(0);
             }
         }
 

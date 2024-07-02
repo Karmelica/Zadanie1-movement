@@ -1,9 +1,7 @@
 using System.Collections.Generic;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEditor.UI;
 
 public class MenuScript : MonoBehaviour
 {
@@ -14,6 +12,8 @@ public class MenuScript : MonoBehaviour
     private AsyncOperation asyncOperation;
     private float currentLoadValue;
     private float targetLoadValue;
+
+    public AudioSource audioSource;
 
     public Slider progressBar;
     public Slider leftSlider;
@@ -97,7 +97,7 @@ public class MenuScript : MonoBehaviour
                 break;
             case 1:
                 loadingScreen.SetActive(true);
-                asyncOperation = SceneManager.LoadSceneAsync(0);
+                asyncOperation = SceneManager.LoadSceneAsync(1);
                 asyncOperation.allowSceneActivation = false;
                 break;
             case 2:
@@ -119,6 +119,12 @@ public class MenuScript : MonoBehaviour
                 break;
         }
     }
+
+    public void OnClick()
+    {
+        audioSource.Play();
+    }
+
     public void OnPointerDown()
     {
         pressed = true;

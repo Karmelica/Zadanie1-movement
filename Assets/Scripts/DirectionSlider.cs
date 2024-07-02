@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +5,9 @@ public class DirectionSlider : MonoBehaviour
 {
     [SerializeField] private Slider slider;
     public Sprite[] revImages;
+    public AudioClip[] engineSounds;
+    public AudioSource enginePlayer;
+
     public Image revMeter;
 
     public void ResetRevMeter()
@@ -18,12 +19,19 @@ public class DirectionSlider : MonoBehaviour
     {
         slider.value++;
         revMeter.sprite = revImages[(int)slider.value];
+        enginePlayer.Stop();
+        enginePlayer.PlayOneShot(engineSounds[(int)slider.value]);
     }
 
     public void GearDown()
     {
         slider.value--;
         revMeter.sprite = revImages[(int)slider.value];
+        if(slider.value != 0)
+        {
+            enginePlayer.Stop();
+            enginePlayer.PlayOneShot(engineSounds[(int)slider.value]);
+        }
     }
 
     private void Start()

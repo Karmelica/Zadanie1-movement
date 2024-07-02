@@ -19,6 +19,7 @@ public class Mech : MonoBehaviour
     private bool anyCoreSlotLeft = false;
 
     [Header("Components")]
+
     public Tutorial tutorial;
     public MeshRenderer cubeMesh;
     public Image core;
@@ -263,6 +264,7 @@ public class Mech : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        AudioListener.volume = PlayerPrefs.GetFloat("PlayerVolume");
         targetAngle = transform.eulerAngles.y;
 
         rb = GetComponent<Rigidbody>();
@@ -281,6 +283,7 @@ public class Mech : MonoBehaviour
         {
             cubeMesh.enabled = false;
         }
+
 
         float angleChange = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref r, 0.4f);
         transform.rotation = Quaternion.Euler(transform.rotation.x, angleChange, transform.rotation.z);
