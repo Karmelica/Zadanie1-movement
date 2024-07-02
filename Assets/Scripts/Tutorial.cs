@@ -76,8 +76,7 @@ public class Tutorial : MonoBehaviour
             rightLever.value = 1;
             clutchLevel.value = 0;
             dirSlider.ResetRevMeter();
-
-            forwardButton.gameObject.SetActive(true);
+            
             task5Camera.gameObject.SetActive(true);
         }
 
@@ -418,7 +417,6 @@ public class Tutorial : MonoBehaviour
         overchargeFillButton1.enabled = false;
         fuelCoreButton.enabled = false;
 
-        forwardButton.gameObject.SetActive(false);
         hideText.gameObject.SetActive(true);
     }
 }

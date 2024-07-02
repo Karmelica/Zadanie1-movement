@@ -9054,7 +9054,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1176859560}
-  - {fileID: 6687036212307081158}
   - {fileID: 618701025}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11407,7 +11406,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.01
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -12976,7 +12975,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.01
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -16865,6 +16864,7 @@ RectTransform:
   - {fileID: 2911414349069276709}
   - {fileID: 1218428970}
   - {fileID: 1857781368}
+  - {fileID: 6687036212307081158}
   - {fileID: 1536463283}
   m_Father: {fileID: 1176859560}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -18081,7 +18081,7 @@ RectTransform:
   - {fileID: 5907503033165368883}
   - {fileID: 6202302519999717489}
   - {fileID: 4556495}
-  m_Father: {fileID: 1393301208}
+  m_Father: {fileID: 3837351566480892102}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
