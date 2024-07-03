@@ -44,7 +44,7 @@ public class MenuScript : MonoBehaviour
         {
             if (leftSlider.value < -0.75f)
             {
-                if (selectedOption < 4)
+                if (selectedOption < selectedButton.Count)
                 {
                     leftSlider.interactable = false;
                     leftSlider.value = -0.75f;
@@ -66,22 +66,22 @@ public class MenuScript : MonoBehaviour
         }
         else if (options.activeInHierarchy)
         {
-            if (leftSlider.value == -1)
+            if (leftSlider.value < -0.75f)
             {
                 if (volumeSlider.value > 0)
                 {
                     volumeSlider.value -= 0.1f;
-                    leftSlider.value = 0;
+                    leftSlider.value = -0.75f;
                     leftSlider.interactable = false;
                 }
             }
 
-            if (rightSlider.value == 1)
+            if (rightSlider.value > 0.75)
             {
                 if (volumeSlider.value < 1)
                 {
                     volumeSlider.value += 0.1f;
-                    rightSlider.value = 0;
+                    rightSlider.value = 0.75f;
                     rightSlider.interactable = false;
                 }
             }
@@ -93,7 +93,9 @@ public class MenuScript : MonoBehaviour
         switch (selected)
         {
             case 0:
-                Debug.Log("Not ready yet");    
+                loadingScreen.SetActive(true);
+                asyncOperation = SceneManager.LoadSceneAsync(2);
+                asyncOperation.allowSceneActivation = false;
                 break;
             case 1:
                 loadingScreen.SetActive(true);

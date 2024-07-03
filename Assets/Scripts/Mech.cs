@@ -20,6 +20,7 @@ public class Mech : MonoBehaviour
 
     [Header("Components")]
 
+    public Level1 level1;
     public Tutorial tutorial;
     public MeshRenderer cubeMesh;
     public Image core;
@@ -43,6 +44,7 @@ public class Mech : MonoBehaviour
     public Image rightOverchargeLevel;
 
     [Header("Cores")]
+    static public int coresNum = 0;
     private Collider colli;
     private bool hasRightCore = false;
     private bool hasLeftCore = false;
@@ -135,7 +137,7 @@ public class Mech : MonoBehaviour
 
     private void Fuel()
     {
-        if (tutorial.enabled == false || tutorial.task6)
+        if (tutorial == null || tutorial.task6)
         {
             if (fuelImage.fillAmount > 0)
             {
@@ -151,7 +153,7 @@ public class Mech : MonoBehaviour
 
     public void AddFuel()
     {
-        fuelImage.fillAmount += 0.3f;
+        fuelImage.fillAmount += 0.33f;
     }
     public void LeftOverchargeDelete()
     {
@@ -167,7 +169,7 @@ public class Mech : MonoBehaviour
 
     private void Overcharge()
     {
-        if (tutorial.enabled == false || tutorial.task6) {
+        if (tutorial == null || tutorial.task6) {
             if (!hasLeftCore)
             {
                 if (leftOverchargeLevel.fillAmount < 1)
@@ -255,6 +257,10 @@ public class Mech : MonoBehaviour
                     anyCoreSlotLeft = true;
                     AddCore();
                     Destroy(colli.gameObject);
+                    if (level1 != null)
+                    {
+                        level1.Lvl1();
+                    }
                     break;
                 }
             }
